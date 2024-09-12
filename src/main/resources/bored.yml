@@ -1,0 +1,86 @@
+openapi: 3.0.3
+info:
+  title: Bored API
+  description: A simple API that provides random activities to do when you're bored.
+  version: 1.0.0
+servers:
+  - url: https://bored-api.appbrewery.com
+    description: The production API server
+paths:
+  /random:
+    get:
+      operationId: getRandomActivity
+      summary: Get a random activity
+      description: Returns a random activity to do when you're bored.
+      responses:
+        '200':
+          description: A random activity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  activity:
+                    type: string
+                  availability:
+                    type: number
+                    format: float
+                  type:
+                    type: string
+                  participants:
+                    type: integer
+                  price:
+                    type: number
+                    format: float
+                  accessibility:
+                    type: string
+                  duration:
+                    type: string
+                  kidFriendly:
+                    type: boolean
+                  link:
+                    type: string
+                  key:
+                    type: string
+  /filter:
+    get:
+      operationId: getFilteredActivity
+      summary: Get a random activity by type
+      description: Returns a random activity of the specified type.
+      parameters:
+        - name: type
+          in: path
+          required: true
+          description: The type of activity to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A random activity of the specified type
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  activity:
+                    type: string
+                  availability:
+                    type: number
+                    format: float
+                  participants:
+                    type: integer
+                  price:
+                    type: number
+                    format: float
+                  accessibility:
+                    type: string
+                  duration:
+                    type: string
+                  kidFriendly:
+                    type: boolean
+                  link:
+                    type: string
+                  key:
+                    type: string
+        '404':
+          description: Activity type not found
